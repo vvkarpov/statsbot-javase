@@ -10,7 +10,7 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage = new SendMessage().setChatId(update.getMessage().getChatId());
-        if(update.getMessage().getText().equals("/stat")){
+        if(update.getMessage().getText().equals("/stats")){
             sendMessage.setText("Statistics for yesterday: 0 visitor's | 0 click's");
             try {
                 execute(sendMessage);
