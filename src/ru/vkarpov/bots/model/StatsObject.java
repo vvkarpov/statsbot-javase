@@ -1,4 +1,4 @@
-package ru.vkarpov.bots;
+package ru.vkarpov.bots.model;
 
 public class StatsObject {
 

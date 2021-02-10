@@ -1,4 +1,4 @@
-package ru.vkarpov.bots;
+package ru.vkarpov.bots.controller;
 
 import java.io.*;
 import java.net.HttpURLConnection;
