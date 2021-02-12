@@ -39,22 +39,37 @@ QUESTIONS:
 
 public class Request {
 
+    final static private String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
+    final static private String OAUTH_TOKEN = "";
+    final static private String LOGIN = "";
+
     public static String getStats() throws IOException {
 
-        final URL url = new URL("https://api.direct.yandex.com/json/v5/reports");
+        final URL url = new URL(JSON_URL);
         final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+        //Header params
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        con.setRequestProperty("Authorization", "Bearer " + OAUTH_TOKEN);
+        con.setRequestProperty("Client-Login", LOGIN);
+        con.setRequestProperty("Accept-Language", "en");
+        con.setRequestProperty("returnMoneyInMicros", "false");
+        con.setRequestProperty("skipReportHeader", "true");
+        con.setRequestProperty("skipColumnHeader", "true");
+        con.setRequestProperty("skipReportSummary", "true");
         con.setDoOutput(true);
 
-        byte[] out = "{\"username\":\"root\",\"password\":\"password\"}".getBytes(StandardCharsets.UTF_8);
+        byte[] out = "{\"DateRangeType\":\"YESTERDAY\",\"ReportType\":\"ACCOUNT_PERFORMANCE_REPORT\"}".getBytes(StandardCharsets.UTF_8);
         int length = out.length;
 
         con.setFixedLengthStreamingMode(length);
         con.connect();
-        try(OutputStream os = con.getOutputStream()) {
+        try (OutputStream os = con.getOutputStream()) {
             os.write(out);
         }
+
+    }
 // Do something with http.getInputStream()
 
 }
