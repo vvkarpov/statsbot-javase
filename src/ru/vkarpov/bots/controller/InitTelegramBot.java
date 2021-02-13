@@ -1,4 +1,4 @@
-package ru.vkarpov.bots.service;
+package ru.vkarpov.bots.controller;
 
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -7,14 +7,18 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import ru.vkarpov.bots.service.Property;
 
-public class Bot extends TelegramLongPollingBot {
+public class InitTelegramBot extends TelegramLongPollingBot {
+
+    final static private String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
+    final static private String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi telegram = new TelegramBotsApi();
 
-        Bot bot = new Bot();
+        InitTelegramBot bot = new InitTelegramBot();
         try {
             telegram.registerBot(bot);
         }catch (TelegramApiRequestException exp){
@@ -37,11 +41,11 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "@AdvertStatsBot";
+        return BOT_USER_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return "1683780434:AAFYqEOEZNZaze2HhiIboUV36ZOiqgPK5ok";
+        return BOT_TOKEN;
     }
 }

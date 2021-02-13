@@ -1,5 +1,7 @@
 package ru.vkarpov.bots.controller;
 
+import ru.vkarpov.bots.service.Property;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,11 +39,11 @@ QUESTIONS:
 1. КАК ЗАПРОСИТЬ БАЛАНС?
 */
 
-public class Request {
+public class RequestYandexApi {
 
     final static private String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
-    final static private String OAUTH_TOKEN = "";
-    final static private String LOGIN = "";
+    final static private String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
+    final static private String USER_LOGIN = Property.getProperties("USER_LOGIN");
 
     public static String getStats() throws IOException {
 
@@ -51,8 +53,8 @@ public class Request {
         //Header params
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        con.setRequestProperty("Authorization", "Bearer " + OAUTH_TOKEN);
-        con.setRequestProperty("Client-Login", LOGIN);
+        con.setRequestProperty("Authorization", "Bearer " + USER_OAUTH_TOKEN);
+        con.setRequestProperty("Client-Login", USER_LOGIN);
         con.setRequestProperty("Accept-Language", "en");
         con.setRequestProperty("returnMoneyInMicros", "false");
         con.setRequestProperty("skipReportHeader", "true");
@@ -60,10 +62,11 @@ public class Request {
         con.setRequestProperty("skipReportSummary", "true");
         con.setDoOutput(true);
 
-        byte[] out = "{\"DateRangeType\":\"YESTERDAY\",\"ReportType\":\"ACCOUNT_PERFORMANCE_REPORT\"}".getBytes(StandardCharsets.UTF_8);
+        byte[] out = ("{\"DateRangeType\":\"YESTERDAY\",\"ReportType\":\"ACCOUNT_PERFORMANCE_REPORT\"," +
+                "\"FieldNames\":\"Impressions\"}").getBytes(StandardCharsets.UTF_8);
         int length = out.length;
-
         con.setFixedLengthStreamingMode(length);
+
         con.connect();
         try (OutputStream os = con.getOutputStream()) {
             os.write(out);

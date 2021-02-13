@@ -1,6 +1,6 @@
 package ru.vkarpov.bots.model;
 
-public class StatsObject {
+public class Stats {
 
     private int viewCount;
     private int clickCount;
@@ -10,7 +10,7 @@ public class StatsObject {
     private int cpc;
     private int balance; //не нашел как запрашивать у АПИ
 
-    public StatsObject(int viewCount, int clickCount, int ctr, int refusing, int expense, int cpc, int balance) {
+    public Stats(int viewCount, int clickCount, int ctr, int refusing, int expense, int cpc, int balance) {
         this.viewCount = viewCount;
         this.clickCount = clickCount;
         this.ctr = ctr;
