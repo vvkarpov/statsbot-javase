@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /*
 Адрес для JSON-запросов
@@ -49,6 +50,7 @@ public class RequestYandexApi {
 
         final URL url = new URL(JSON_URL);
         final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        final String answer;
 
         //Header params
         con.setRequestMethod("POST");
@@ -72,7 +74,13 @@ public class RequestYandexApi {
             os.write(out);
         }
 
+        try (InputStream in = con.getInputStream()){
+            byte[] array = in.readAllBytes();
+            answer = Arrays.toString(array);
+            System.out.println(answer);
+        }
+
+        return answer;
     }
-// Do something with http.getInputStream()
 
 }
