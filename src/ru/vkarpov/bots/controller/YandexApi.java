@@ -40,7 +40,7 @@ QUESTIONS:
 1. КАК ЗАПРОСИТЬ БАЛАНС?
 */
 
-public class RequestYandexApi {
+public class YandexApi {
 
     final static private String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
     final static private String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
@@ -77,9 +77,8 @@ public class RequestYandexApi {
         try (InputStream in = con.getInputStream()){
             byte[] array = in.readAllBytes();
             answer = Arrays.toString(array);
-            System.out.println(answer);
         }
-
+        System.out.println(answer);
         return answer;
     }
 
