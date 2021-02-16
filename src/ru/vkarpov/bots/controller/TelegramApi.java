@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.vkarpov.bots.service.Property;
 
-public class TelegramAPI extends TelegramLongPollingBot {
+public class TelegramApi extends TelegramLongPollingBot {
 
     final static private String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
     final static private String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
@@ -18,7 +18,7 @@ public class TelegramAPI extends TelegramLongPollingBot {
         ApiContextInitializer.init();
         TelegramBotsApi telegram = new TelegramBotsApi();
 
-        TelegramAPI bot = new TelegramAPI();
+        TelegramApi bot = new TelegramApi();
         try {
             telegram.registerBot(bot);
         }catch (TelegramApiRequestException exp){
