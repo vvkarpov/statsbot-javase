@@ -1,12 +1,15 @@
 package ru.vkarpov.bots.service;
 
-import java.util.Map;
+import ru.vkarpov.bots.model.Stats;
 
 public class ParserJSON {
 
-    public static Map<String, Integer> parseJSONFromString(String str){
+    /*
+    public static Stats parseJSONFromString(String str){
 
-
+        return new Stats();
     }
+
+     */
 
 }

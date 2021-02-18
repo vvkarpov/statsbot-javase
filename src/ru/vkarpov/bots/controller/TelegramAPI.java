@@ -9,10 +9,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.vkarpov.bots.service.Property;
 
+import java.io.IOException;
+
 public class TelegramAPI extends TelegramLongPollingBot {
 
-    final static private String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
-    final static private String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
+    final private static String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
+    final private static String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
@@ -30,7 +32,11 @@ public class TelegramAPI extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage = new SendMessage().setChatId(update.getMessage().getChatId());
         if(update.getMessage().getText().equals("/stats")){
-            sendMessage.setText("Statistics for yesterday: 0 visitor's | 0 click's");
+            try {
+                sendMessage.setText(YandexAPI.getStats());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 execute(sendMessage);
             } catch (TelegramApiException exp){

@@ -42,9 +42,9 @@ QUESTIONS:
 
 public class YandexAPI {
 
-    final static private String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
-    final static private String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
-    final static private String USER_LOGIN = Property.getProperties("USER_LOGIN");
+    final private static String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
+    final private static String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
+    final private static String USER_LOGIN = Property.getProperties("USER_LOGIN");
 
     public static String getStats() throws IOException {
 
@@ -75,12 +75,27 @@ public class YandexAPI {
             os.write(out);
         }
 
-        try (InputStream in = con.getInputStream()){
-            byte[] array = in.readAllBytes();
-            answer = Arrays.toString(array);
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + Arrays.toString(out));
+        System.out.println("Response Code : " + responseCode);
+
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()))) {
+
+            String line;
+            StringBuilder response = new StringBuilder();
+
+            while ((line = in.readLine()) != null) {
+                response.append(line);
+            }
+
+            //print result
+            System.out.println(response.toString());
+
         }
-        System.out.println(answer);
-        return answer;
+
+        return "null";
     }
 
 }
