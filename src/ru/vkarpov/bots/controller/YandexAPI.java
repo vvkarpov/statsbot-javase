@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 /*
 Адрес для JSON-запросов
@@ -24,12 +23,7 @@ skipReportHeader: true
 skipColumnHeader: true
 skipReportSummary: true
 
-BODY
-DateRangeType: YESTERDAY
-ReportType: ACCOUNT_PERFORMANCE_REPORT
-FieldNames: Impressions; Clicks; Ctr; BounceRate; Cost; AvgCpc
-
-{Impressions - кол-во показов
+Impressions - кол-во показов
 Clicks - кол-во кликов
 Ctr - цтр
 BounceRate - отказы
@@ -42,7 +36,7 @@ QUESTIONS:
 
 public class YandexAPI {
 
-    final private static String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
+    final private static String JSON_URL = "https://api-sandbox.direct.yandex.com/json/v5/reports";
     final private static String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
     final private static String USER_LOGIN = Property.getProperties("USER_LOGIN");
 
@@ -65,8 +59,25 @@ public class YandexAPI {
         con.setDoOutput(true);
 
         //Body params
-        byte[] out = ("{\"DateRangeType\":\"YESTERDAY\",\"ReportType\":\"ACCOUNT_PERFORMANCE_REPORT\"," +
-                "\"FieldNames\":\"Impressions\"}").getBytes(StandardCharsets.UTF_8);
+        byte[] out = ("{\n" +
+                "    \"params\": {\n" +
+                "        \"SelectionCriteria\": {},\n" +
+                "        \"FieldNames\": [\n" +
+                "            \"Impressions\",\n" +
+                "            \"Clicks\",\n" +
+                "            \"Ctr\",\n" +
+                "            \"BounceRate\",\n" +
+                "            \"Cost\",\n" +
+                "            \"AvgCpc\"\n" +
+                "        ],\n" +
+                "        \"ReportName\": \"НАЗВАНИЕ_ОТЧЕТА\",\n" +
+                "        \"ReportType\": \"CAMPAIGN_PERFORMANCE_REPORT\",\n" +
+                "        \"DateRangeType\": \"YESTERDAY\",\n" +
+                "        \"Format\": \"TSV\",\n" +
+                "        \"IncludeVAT\": \"NO\",\n" +
+                "        \"IncludeDiscount\": \"NO\"\n" +
+                "    }\n" +
+                "}").getBytes(StandardCharsets.UTF_8);
         int length = out.length;
         con.setFixedLengthStreamingMode(length);
 
@@ -77,8 +88,8 @@ public class YandexAPI {
 
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + Arrays.toString(out));
-        System.out.println("Response Code : " + responseCode);
+        System.out.println("Post parameters: " + new String(out, StandardCharsets.UTF_8));
+        System.out.println("Response Code: " + responseCode);
 
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()))) {
@@ -92,10 +103,8 @@ public class YandexAPI {
 
             //print result
             System.out.println(response.toString());
-
+            return response.toString();
         }
-
-        return "null";
     }
 
 }
