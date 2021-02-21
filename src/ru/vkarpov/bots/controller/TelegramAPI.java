@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import ru.vkarpov.bots.service.CreateBotAnswer;
+import ru.vkarpov.bots.service.ParserAPIAnswer;
 import ru.vkarpov.bots.service.Property;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class TelegramAPI extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage().setChatId(update.getMessage().getChatId());
         if(update.getMessage().getText().equals("/stats")){
             try {
-                sendMessage.setText(YandexAPI.getStats());
+                sendMessage.setText(CreateBotAnswer.botAnswer());
             } catch (IOException e) {
                 e.printStackTrace();
             }

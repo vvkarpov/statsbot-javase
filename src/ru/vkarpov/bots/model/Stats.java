@@ -2,77 +2,72 @@ package ru.vkarpov.bots.model;
 
 public class Stats {
 
-    private int viewCount;
-    private int clickCount;
-    private int ctr;
-    private int bounceRate;
-    private int cost;
-    private int cpc;
-    private int balance; //не нашел как запрашивать у АПИ
+    private String impressions;
+    private String clicks;
+    private String ctr;
+    private String bounceRate;
+    private String cost;
+    private String avgCPC;
 
-    public Stats(int viewCount, int clickCount, int ctr, int refusing, int expense, int cpc, int balance) {
-        this.viewCount = viewCount;
-        this.clickCount = clickCount;
+    public Stats(){}
+
+    public void setImpressions(String impressions) {
+        this.impressions = impressions;
+    }
+
+    public void setClicks(String clicks) {
+        this.clicks = clicks;
+    }
+
+    public void setCtr(String ctr) {
         this.ctr = ctr;
-        this.bounceRate = refusing;
-        this.cost = expense;
-        this.cpc = cpc;
-        this.balance = balance;
     }
 
-    public int getViewCount() {
-        return viewCount;
+    public void setBounceRate(String bounceRate) {
+        this.bounceRate = bounceRate;
     }
 
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
-    public int getClickCount() {
-        return clickCount;
+    public void setAvgCPC(String avgCPC) {
+        this.avgCPC = avgCPC;
     }
 
-    public void setClickCount(int clickCount) {
-        this.clickCount = clickCount;
+    public String getImpressions() {
+        return impressions;
     }
 
-    public int getCtr() {
+    public String getClicks() {
+        return clicks;
+    }
+
+    public String getCtr() {
         return ctr;
     }
 
-    public void setCtr(int ctr) {
-        this.ctr = ctr;
-    }
-
-    public int getRefusing() {
+    public String getBounceRate() {
         return bounceRate;
     }
 
-    public void setRefusing(int refusing) {
-        this.bounceRate = refusing;
-    }
-
-    public int getExpense() {
+    public String getCost() {
         return cost;
     }
 
-    public void setExpense(int expense) {
-        this.cost = expense;
+    public String getAvgCPC() {
+        return avgCPC;
     }
 
-    public int getCpc() {
-        return cpc;
-    }
-
-    public void setCpc(int cpc) {
-        this.cpc = cpc;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
+    @Override
+    public String toString() {
+        return "Stats{" +
+                "impressions='" + impressions + '\'' +
+                ", clicks='" + clicks + '\'' +
+                ", ctr='" + ctr + '\'' +
+                ", bounceRate='" + bounceRate + '\'' +
+                ", cost='" + cost + '\'' +
+                ", avgCPC='" + avgCPC + '\'' +
+                '}';
     }
 }

@@ -29,9 +29,6 @@ Ctr - цтр
 BounceRate - отказы
 Cost - стоимость кликов
 AvgCpc - Средняя стоимость клика}
-
-QUESTIONS:
-1. КАК ЗАПРОСИТЬ БАЛАНС?
 */
 
 public class YandexAPI {
@@ -100,7 +97,6 @@ public class YandexAPI {
             while ((line = in.readLine()) != null) {
                 response.append(line);
             }
-
             //print result
             System.out.println(response.toString());
             return response.toString();
