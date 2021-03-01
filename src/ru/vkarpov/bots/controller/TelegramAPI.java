@@ -8,15 +8,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.vkarpov.bots.service.CreateBotAnswer;
-import ru.vkarpov.bots.service.ParserAPIAnswer;
 import ru.vkarpov.bots.service.Property;
 
 import java.io.IOException;
+
+//"id": 262772785 - my chat id for send private messages
 
 public class TelegramAPI extends TelegramLongPollingBot {
 
     final private static String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
     final private static String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
+    final private static String CHAT_ID = Property.getProperties("CHAT_ID");
 
     public static void main(String[] args) {
         ApiContextInitializer.init();

@@ -25,7 +25,6 @@ public class ParserAPIAnswer {
         stats.setCost(list.get(4));
         stats.setAvgCPC(list.get(5));
 
-        //System.out.println(Arrays.toString(list.toArray()));
         return stats;
     }
 
