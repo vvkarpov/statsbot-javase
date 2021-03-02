@@ -1,6 +1,6 @@
 package ru.vkarpov.bots.controller;
 
-import ru.vkarpov.bots.service.Property;
+import ru.vkarpov.bots.utils.Property;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -41,7 +41,6 @@ public class YandexAPI {
 
         final URL url = new URL(JSON_URL);
         final HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        final String answer;
 
         //Header params
         con.setRequestMethod("POST");

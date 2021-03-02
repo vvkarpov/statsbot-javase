@@ -1,4 +1,4 @@
-package ru.vkarpov.bots.service;
+package ru.vkarpov.bots.utils;
 
 import ru.vkarpov.bots.controller.YandexAPI;
 import ru.vkarpov.bots.model.Stats;
@@ -8,14 +8,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParserAPIAnswer {
+public class ParserYandexAPIAnswer {
 
     public static Stats createStatsObj() throws IOException {
         Stats stats = new Stats();
         String str = YandexAPI.getStats();
 
         String[] parseArray = str.split("\t");
-        List<String> list = Arrays.stream(parseArray).map(String::trim)
+        List<String> list = Arrays.stream(parseArray)
+                .map(String::trim)
                 .collect(Collectors.toList());
 
         stats.setImpressions(list.get(0));

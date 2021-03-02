@@ -1,4 +1,4 @@
-package ru.vkarpov.bots.service;
+package ru.vkarpov.bots.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;

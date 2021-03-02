@@ -1,61 +1,44 @@
 package ru.vkarpov.bots.controller;
 
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-import ru.vkarpov.bots.service.CreateBotAnswer;
-import ru.vkarpov.bots.service.Property;
+import ru.vkarpov.bots.utils.CreateBotAnswer;
+import ru.vkarpov.bots.utils.Property;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-//"id": 262772785 - my chat id for send private messages
+public class TelegramAPI {
 
-public class TelegramAPI extends TelegramLongPollingBot {
-
-    final private static String BOT_USER_NAME = Property.getProperties("BOT_USER_NAME");
     final private static String BOT_TOKEN = Property.getProperties("BOT_TOKEN");
     final private static String CHAT_ID = Property.getProperties("CHAT_ID");
+    final private static String URL_REQUEST = "https://api.telegram.org/";
 
-    public static void main(String[] args) {
-        ApiContextInitializer.init();
-        TelegramBotsApi telegram = new TelegramBotsApi();
+    public static void main(String[] args) throws IOException {
 
-        TelegramAPI bot = new TelegramAPI();
-        try {
-            telegram.registerBot(bot);
-        }catch (TelegramApiRequestException exp){
-            exp.getStackTrace();
+        String urlParams = "bot" +
+                BOT_TOKEN +
+                "/sendMessage?chat_id=" +
+                CHAT_ID +
+                "&text=" +
+                CreateBotAnswer.botAnswer();
+
+        URL obj = new URL(URL_REQUEST + urlParams);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
+
+        System.out.println(response.toString());
     }
 
-    @Override
-    public void onUpdateReceived(Update update) {
-        SendMessage sendMessage = new SendMessage().setChatId(update.getMessage().getChatId());
-        if(update.getMessage().getText().equals("/stats")){
-            try {
-                sendMessage.setText(CreateBotAnswer.botAnswer());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                execute(sendMessage);
-            } catch (TelegramApiException exp){
-                exp.getStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public String getBotUsername() {
-        return BOT_USER_NAME;
-    }
-
-    @Override
-    public String getBotToken() {
-        return BOT_TOKEN;
-    }
 }
