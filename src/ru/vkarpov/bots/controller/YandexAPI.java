@@ -33,7 +33,7 @@ AvgCpc - Средняя стоимость клика}
 
 public class YandexAPI {
 
-    final private static String JSON_URL = "https://api-sandbox.direct.yandex.com/json/v5/reports";
+    final private static String JSON_URL = "https://api.direct.yandex.com/json/v5/reports";
     final private static String USER_OAUTH_TOKEN = Property.getProperties("USER_OAUTH_TOKEN");
     final private static String USER_LOGIN = Property.getProperties("USER_LOGIN");
 
@@ -84,7 +84,7 @@ public class YandexAPI {
 
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters: " + new String(out, StandardCharsets.UTF_8));
+        //System.out.println("Post parameters: " + new String(out, StandardCharsets.UTF_8));
         System.out.println("Response Code: " + responseCode);
 
         try (BufferedReader in = new BufferedReader(
