@@ -14,8 +14,8 @@ public class CreateBotAnswer {
         return URLEncoder.encode("Показы: " + stats.getImpressions() + "\n" +
                 "Клики: " + stats.getClicks() + "\n" +
                 "CTR, %: " + stats.getCtr() + "\n" +
-                "Отказы,% : " + stats.getBounceRate() + "\n" +
-                "Потрачено,руб : " + stats.getCost() + "\n" +
+                "Отказы,%: " + stats.getBounceRate() + "\n" +
+                "Потрачено,руб: " + stats.getCost() + "\n" +
                 "Ср.стоимость кликов, руб: " + stats.getAvgCPC(), StandardCharsets.UTF_8);
     }
 
