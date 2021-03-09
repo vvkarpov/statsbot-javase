@@ -67,7 +67,7 @@ public class YandexAPI {
                 "            \"AvgCpc\"\n" +
                 "        ],\n" +
                 "        \"ReportName\": \"НАЗВАНИЕ_ОТЧЕТА\",\n" +
-                "        \"ReportType\": \"CAMPAIGN_PERFORMANCE_REPORT\",\n" +
+                "        \"ReportType\": \"ACCOUNT_PERFORMANCE_REPORT\",\n" +
                 "        \"DateRangeType\": \"YESTERDAY\",\n" +
                 "        \"Format\": \"TSV\",\n" +
                 "        \"IncludeVAT\": \"NO\",\n" +
