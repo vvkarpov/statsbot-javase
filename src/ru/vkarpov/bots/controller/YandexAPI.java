@@ -96,7 +96,6 @@ public class YandexAPI {
             while ((line = in.readLine()) != null) {
                 response.append(line);
             }
-            //print result
             System.out.println(response.toString());
             return response.toString();
         }

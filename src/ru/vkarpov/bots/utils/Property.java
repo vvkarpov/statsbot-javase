@@ -1,18 +1,17 @@
 package ru.vkarpov.bots.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Property {
 
     public static String getProperties(String key){
-        FileInputStream fis;
         Properties property = new Properties();
 
         try {
-            fis = new FileInputStream("src/ru/vkarpov/bots/resources/config.properties");
-            property.load(fis);
+            InputStream in = Property.class.getResourceAsStream("config.properties");
+            property.load(in);
 
         } catch (IOException e) {
             System.err.println("ERROR: File config.properties not find!");
